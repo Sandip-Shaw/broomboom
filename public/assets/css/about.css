@@ -1,0 +1,15 @@
+@media (max-width: 770px) {
+	.about-container {
+		flex-direction: column-reverse;
+		padding: 1.5rem !important;
+	}
+	.about-container .about-img {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.about-container img {
+		padding: 5px 15px;
+		max-height: 15rem;
+	}
+}

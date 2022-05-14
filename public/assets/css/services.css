@@ -1,0 +1,10 @@
+.services .card {
+	background: #f7f7f7 !important;
+}
+
+.services .card .card-title {
+	color: black !important;
+}
+.services .card .card-text {
+	color: #353535 !important;
+}
