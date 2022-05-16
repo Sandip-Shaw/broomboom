@@ -18,7 +18,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">image</h1>
+          <h1 class="h3 mb-2 text-gray-800">Driver</h1>
           <p class="mb-4"> 
           	<!-- <a target="_blank" href="https://datatables.net">official DataTables documentation</a>. -->
           </p>
@@ -26,7 +26,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Listing of Service Images</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Listing of Driver Images</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -34,9 +34,10 @@
                   <thead>
                     <tr>
                       <th>Image</th>
-                      <th>Title</th>
-                      <th>Description</th>
-                     
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Location</th>
                       <th>Added On</th>
                       <!-- <th>Salary</th> -->
                     </tr>
@@ -44,47 +45,47 @@
                   <tfoot>
                     <tr>
                       <th>Image</th>
-                      <th>Title</th>
-                      <th>Description</th>
-                     
+                      <th>Name</th>
+                      <th>Email</th>
+                      <th>Phone</th>
+                      <th>Location</th>
                       <th>Added On</th>
                       <!-- <th>Salary</th> -->
                     </tr>
                   </tfoot>
                   <tbody>
-                  	@foreach($service as $image)
+                  	@foreach($driver as $drivers)
                   	 <tr>
-                      <td><img src="{{asset('/images/service/'.$image->image)}}" alt="Park" style="width:20%">
+                      <td><img src="{{asset('/images/service/'.$drivers->image)}}" alt="Park" style="width:20%">
                       <!-- <i class="fas fa-pen"></i> -->
-                      <a href="{{route('service.edit',$image->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
-                      <a href="{{route('service.show',$image->id)}}" data-toggle="tooltip" title="banner Details" class="btn">
+                      <a href="{{route('service.edit',$drivers->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
+                      <a href="{{route('service.show',$drivers->id)}}" data-toggle="tooltip" title="banner Details" class="btn">
                       <i class="fas fa-eye"></i>
                       </a>
                       <!-- &nbsp &nbsp &nbsp<i class="fas fa-trash"></i> -->
-                      <button class="formConfirm" data-form="#frmDelete-{{$image->id}}" data-title="Delete banner" data-message="Are you sure, you want to delete this Image?" >
+                      <button class="formConfirm" data-form="#frmDelete-{{$drivers->id}}" data-title="Delete banner" data-message="Are you sure, you want to delete this Image?" >
                           <i title="Delete" style="margin-right: 0;" class="fas fa-trash" aria-hidden="true"></i>
 
                       </button>
-                     <!-- {{ dump($image->id)}} -->
+                     <!-- {{ dump($drivers->id)}} -->
                       {!! Form::open(array(
-                              'url' => route('admin.service.delete', array($image->id)),
+                              'url' => route('admin.service.delete', array($drivers->id)),
                               'method' => 'get',
                               'style' => 'display:none',
-                              'id' => 'frmDelete-'.$image->id
+                              'id' => 'frmDelete-'.$drivers->id
                           ))
                       !!}
                       {!! Form::submit('Submit') !!}
                       {!! Form::close() !!}
 
-
-
-
-
                     </td>
-                      <td>{{$image->title}}</td>
-                      <td>{{strlen($image->description)>50?substr($image->description,0,50).'...':$image->description}}</td>
+                      <td>{{$drivers->name}}</td>
+                      <!-- <td>{{strlen($drivers->description)>50?substr($drivers->description,0,50).'...':$drivers->description}}</td> -->
+                      <td>{{$drivers->email}}</td>
+                      <td>{{$drivers->phone}}</td>
+                      <td>{{$drivers->location}}</td>
                      
-                      <td>{{$image->created_at}}</td>
+                      <td>{{$drivers->created_at}}</td>
                     </tr>
                   	@endforeach
                     

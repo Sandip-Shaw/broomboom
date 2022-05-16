@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Driver;
+
 use Image;
 use Session;
 
@@ -18,8 +20,8 @@ class ServiceAdminController extends Controller
      */
     public function index()
     {
-        $service=Service::all();
-        return view('admin.service.index')->withService($service);
+        $driver=Driver::all();
+        return view('admin.service.index')->withDriver($driver);
     }
 
     /**
