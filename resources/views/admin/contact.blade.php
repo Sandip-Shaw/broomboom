@@ -56,8 +56,9 @@
                   	@foreach($contacts as $contact)
                   	 <tr>
                       <td>{{$contact->name}}</td>
-                      <td>{{$contact->email}}</td>                    
-                      <td>{{$contact->message}}</td>  
+                      <td>{{$contact->email}}</td>
+                      <td>{{strlen($contact->message)>50?substr($contact->message,0,50).'...':$contact->message}}                    
+                      <!-- <td>{{$contact->message}}</td>   -->
                       <td>{{$contact->phone}}</td>
                       <td>{{$contact->created_at}}</td>
                     </tr>

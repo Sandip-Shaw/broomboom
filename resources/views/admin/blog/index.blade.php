@@ -1,5 +1,5 @@
 @extends('admin.adminmain')
- @section('title',"image")
+ @section('title',"Users")
  @section('stylesheets')
 
  	  <link href="{{asset('admin/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
@@ -18,7 +18,7 @@
         <div class="container-fluid">
 
           <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">image</h1>
+          <h1 class="h3 mb-2 text-gray-800">Users</h1>
           <p class="mb-4"> 
           	<!-- <a target="_blank" href="https://datatables.net">official DataTables documentation</a>. -->
           </p>
@@ -26,13 +26,15 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Listing of Blogs Images</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Listing of Users</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                    <th>Action</th>
+
                       <th>Name</th>
                       <th>Email</th>
                       <th>Phone</th>
@@ -43,6 +45,8 @@
                   </thead>
                   <tfoot>
                     <tr>
+                    <th>Action</th>
+
                       <th>Name</th>
                       <th>Email</th>
                       <th>Phone</th>
@@ -57,7 +61,7 @@
                   	 <tr>
                     
                       <!-- <i class="fas fa-pen"></i> -->
-                      <a href="{{route('blog.edit',$users->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
+                     <td> <a href="{{route('blog.edit',$users->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
                       <a href="{{route('blog.show',$users->id)}}" data-toggle="tooltip" title="banner Details" class="btn">
                       <i class="fas fa-eye"></i>
                       </a>

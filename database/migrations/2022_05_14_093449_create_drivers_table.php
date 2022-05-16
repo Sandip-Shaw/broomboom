@@ -20,6 +20,7 @@ class CreateDriversTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('phone');
             $table->string('location');
+            $table->string('image');
             $table->timestamps();
         });
     }
