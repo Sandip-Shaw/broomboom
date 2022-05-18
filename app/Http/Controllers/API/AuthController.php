@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApiUser;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+
 
 
 use App\Models\otp;
@@ -24,8 +26,7 @@ class AuthController extends ResponseController
             'name' => 'required|string|',
             'email' => 'required|string|email',
             'password' => 'required',
-            'confirm_password' => 'required|same:password',
-            'otp'=>'required'
+            'confirm_password' => 'required|same:password'
         ]);
 //dd($request['password']);
         if($validator->fails()){
@@ -37,19 +38,11 @@ class AuthController extends ResponseController
              //return $this->sendResponse($validator->errors());  
             // dd($validator->errors());     
         }
-
-    	$otp=otp::where('email',$request['email'])->orderby('created_at','desc')->first();
-		
-		if(!isset($otp))
-			{
-			$error['message'] = "Sorry, OTP did not match";
-			$error['ack'] = 0;
-            return $this->sendResponse($error, 200); 
-			}
-
-    	if($otp->otp==$request['otp']){
+    	
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
+        $input['confirm_password'] = bcrypt($input['confirm_password']);
+
         $user = ApiUser::create($input);
         if($user){
             $success['token'] =  $user->createToken('token')->accessToken;
@@ -57,7 +50,7 @@ class AuthController extends ResponseController
             $success['ack'] = 1;
             $success['name'] = $user->name;
             $success['email'] = $user->email;
-            $success['number'] = $user->number;
+           // $success['number'] = $user->number;
             return $this->sendResponse($success);
         }
         else{
@@ -65,15 +58,55 @@ class AuthController extends ResponseController
             $error['ack'] = 0;
             return $this->sendResponse($error, 200); 
         }
-       }
-
-       else{
-            $error['message'] = "Enter a Valid OTP";
-            $error['ack'] = 0;
-            return $this->sendResponse($error, 200); 
-       }
 
         
+    }
+
+
+    //login
+    public function login(Request $request)
+    {
+       // dd($request['email']);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required'
+        ]);
+       // dd($request['email']);
+       // $validator->error();
+
+        if($validator->fails()){
+        	// $validator->getMessageBag()->add('ack',0); 
+        	$error['message'] = $validator->errors()->first('email');
+            $error['ack']=0;
+            return $this->sendResponse($error);       
+        }
+
+        // $credentials = request(['email', 'password']);
+        // if(!Auth::attempt($credentials)){
+        //     $error['message'] = "Unauthorized";
+        //     $error['ack']="0";
+        //     return $this->sendResponse($error, 200);
+        // }
+        $user = ApiUser::where('email', $request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+        //$user = $request->user();
+        //dd($user);
+        $success['token'] =  $user->createToken('token')->accessToken;
+        $success['ack'] = 1;
+        $success['name'] = $user->name;
+        $success['email'] = $user->email;
+        // $success['number'] = $user->number;
+        // $success['dob'] = $user->dob;
+        // $success['gender'] = $user->gender;
+        // $success['state'] = $user->state;
+        // $success['city'] = $user->city;
+        // $success['address'] = $user->address;
+        // $success['pincode'] = $user->pincode;
+
+        return $this->sendResponse($success);
+             }
+        }
     }
     
 }

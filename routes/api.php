@@ -20,4 +20,13 @@ use App\Http\Controllers\API\AuthController;
 //     return $request->user();
 // });
 
-Route::post('/auth/signup', [AuthController::class,'signup']);
+
+
+
+
+Route::group(['middleware' => ['guest:api']], function () {
+    Route::post('/auth/signup', [AuthController::class,'signup']);
+
+    Route::post('/auth/login', [AuthController::class,'login']);
+
+});
