@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\EmailController;
+
 
 
 /*
@@ -28,5 +30,6 @@ Route::group(['middleware' => ['guest:api']], function () {
     Route::post('/auth/signup', [AuthController::class,'signup']);
 
     Route::post('/auth/login', [AuthController::class,'login']);
+    Route::get('/auth/send-otp/{email}', [EmailController::class,'sendOtp']);
 
 });
