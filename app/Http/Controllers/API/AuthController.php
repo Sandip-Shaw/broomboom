@@ -117,42 +117,5 @@ class AuthController extends ResponseController
 
 
 
-    public function vehical_type(Request $request)
-    {
-    	 //dd($request['email']);
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|string|email',
-            'vehical_type' => 'required'
-        ]);
-         //dd($request['email']);
-        if($validator->fails()){
-        
-        	$error['message'] = $validator->errors()->first('email');
-            $error['ack']=0;
-            return $this->sendResponse($error);    
-    
-        }
-       // $user = $request->user();
-       $input = $request->all();
-       $user = vehical::create($input);
-        if($user){
-           
-            $success['message'] = "Successfull..";
-            $success['ack'] = 1;
-            $success['name'] = $user->name;
-            $success['email'] = $user->email;
-            $success['vehical_type'] = $user->vehical_type;
-
-           // $success['number'] = $user->number;
-            return $this->sendResponse($success);
-        }
-        else{
-            $error['message'] = "Sorry! Unsuccessfull.";
-            $error['ack'] = 0;
-            return $this->sendResponse($error, 200); 
-        }
-
-    }
+  
 }
