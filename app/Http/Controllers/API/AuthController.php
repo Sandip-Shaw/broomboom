@@ -104,6 +104,7 @@ class AuthController extends ResponseController
 
 
 
+
     public function vehical_type(Request $request)
     {
     	 //dd($request['email']);
@@ -143,4 +144,5 @@ class AuthController extends ResponseController
         }
 
     }
+
 }
