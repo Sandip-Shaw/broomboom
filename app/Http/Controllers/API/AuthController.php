@@ -37,8 +37,7 @@ class AuthController extends ResponseController
             $error['ack']=0;
             return $this->sendResponse($error);    
 
-             //return $this->sendResponse($validator->errors());  
-            // dd($validator->errors());     
+           
         }
     	
         $input = $request->all();
@@ -74,6 +73,10 @@ class AuthController extends ResponseController
             'password' => 'required'
         ]);
 
+      
+       // dd($request['password']);
+
+
 
         if($validator->fails()){
         	// $validator->getMessageBag()->add('ack',0); 
@@ -88,7 +91,8 @@ class AuthController extends ResponseController
             return $this->sendResponse($error, 200);
         }
 
-       
+      
+      //  $user = $request->user();
          $user= Auth::user();
        
 
@@ -97,7 +101,13 @@ class AuthController extends ResponseController
         $success['message'] = "Login successfull..";
         $success['name'] = $user->name;
         $success['email'] = $user->email;
+
+      
+
         return $this->sendResponse($success);
+             }
+   
+
 
          }
     

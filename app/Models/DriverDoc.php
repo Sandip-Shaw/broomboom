@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class DriverDoc extends Model
 {
-    use HasFactory;
+    public function parameters(){
+
+    	return $this->belongsToMany(Parameter::class);
+    }
 }
