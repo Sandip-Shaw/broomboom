@@ -43,6 +43,5 @@ Route::group(['middleware' => ['guest:api']], function () {
 Route::group(['middleware' => 'auth:api'], function() {  
     Route::post('/auth/choose_vehical', [VehicalTypeController::class,'vehical_type']);
 
-
-
 }); 
+
