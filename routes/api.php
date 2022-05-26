@@ -48,5 +48,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('/auth/doc-upload', [DriverDocUploadController::class, 'upload']);
     Route::post('/auth/support', [SupportController::class, 'support']);
 
+
     
 }); 
+
