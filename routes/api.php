@@ -32,4 +32,5 @@ Route::group(['middleware' => ['guest:api']], function () {
     Route::post('/auth/login', [AuthController::class,'login']);
     Route::get('/auth/send-otp/{email}', [EmailController::class,'sendOtp']);
 
+
 });
