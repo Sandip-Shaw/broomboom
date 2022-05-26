@@ -11,26 +11,30 @@ class DriverDocUploadController extends Controller
 {
     public function upload(Request $request)
     {
-        foreach ($request->request as $key => $value) {
-            echo $value;
-            }
+        // foreach ($request->request as $x) {
+        //  echo $x;
+        //     }
             
-    $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
-    // $txt = "John Doe\n";
-    fwrite($myfile, $value);
-
+   // $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+     //$txt = "John Doe\n";
+   // fwrite($myfile, $value);
+  // dd($request->request[0]);
             $driver=new DriverDoc;
-            // dd($value);
-            $ob=json_decode($value, true);
-            $driver->name=$ob['name'];
-            $driver->number=$ob['number'];
-            $driver->designation=$ob['designation'];
-            $driver->dl_no=$ob['dl_no'];
-            $driver->pan_no=$ob['pan_no'];
-            $driver->adhar_no=$ob['adhar_no'];
+            $x=$request->request;
+
+            $data=$request->toArray();
+            
+            // dd($x['name']);
+// $data=json_decode($request->request, true);
+            $driver->name=$data['name'];
+            $driver->number=$data['number'];
+            $driver->designation=$data['designation'];
+            $driver->dl_no=$data['dl_no'];
+            $driver->pan_no=$data['pan_no'];
+            $driver->adhar_no=$data['adhar_no'];
 
             $driver->status='A';
-
+// dd($driver);
             $checkDriverExists=DriverDoc::where('dl_no',$driver->dl_no)->first();
 			if(isset($checkDriverExists)){
 		
@@ -95,7 +99,7 @@ class DriverDocUploadController extends Controller
 
     #end rc file
     //  $driver->save();
-    //  $list=[];
+     // $list=[];
      if($driver->save()){
         $success['message'] = "Documents Uploaded Successfull";
         $success['ack'] = 1;
