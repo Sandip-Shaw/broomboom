@@ -11,30 +11,21 @@ class DriverDocUploadController extends Controller
 {
     public function upload(Request $request)
     {
-        // foreach ($request->request as $x) {
-        //  echo $x;
-        //     }
-            
-   // $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
-     //$txt = "John Doe\n";
-   // fwrite($myfile, $value);
-  // dd($request->request[0]);
+      
             $driver=new DriverDoc;
             $x=$request->request;
 
             $data=$request->toArray();
-            
-            // dd($x['name']);
-// $data=json_decode($request->request, true);
+      
             $driver->name=$data['name'];
             $driver->number=$data['number'];
-            $driver->designation=$data['designation'];
+            
             $driver->dl_no=$data['dl_no'];
-            $driver->pan_no=$data['pan_no'];
-            $driver->adhar_no=$data['adhar_no'];
+            $driver->rc_no=$data['rc_no'];
+            $driver->others_no=$data['others_no'];
 
             $driver->status='A';
-// dd($driver);
+
             $checkDriverExists=DriverDoc::where('dl_no',$driver->dl_no)->first();
 			if(isset($checkDriverExists)){
 		
@@ -46,60 +37,62 @@ class DriverDocUploadController extends Controller
 
 		    }
 
-    ##block the entry and show partner exists for DL, PAN, ADHAR 
-    #for dl file
-	  $file=$request->file('dl_file');
-      $filename='drivingLicence-'.rand().time().$file->getClientOriginalName();
-      // $extension=$file->getClientOriginalExtension();
-      $destinationPath = public_path('images/driverDoc/drivingLicence');
-      $file->move($destinationPath,$filename);
+    ##block the entry and show partner exists for DL, RC AND OTHERS
+    #dl_file_front part
+        $file=$request->file('dl_file_front');
+        $filename='drivingLicence-front-'.rand().time().$file->getClientOriginalName();
+        // $extension=$file->getClientOriginalExtension();
+        $destinationPath = public_path('images/driverDoc/drivingLicence');
+        $file->move($destinationPath,$filename);
+        $driver->dl_file_front=$filename;
 
-	  $driver->dl_file=$filename;
+    #dl_file_back part
+        $file=$request->file('dl_file_back');
+        $filename='drivingLicence-back-'.rand().time().$file->getClientOriginalName();
+        // $extension=$file->getClientOriginalExtension();
+        $destinationPath = public_path('images/driverDoc/drivingLicence');
+        $file->move($destinationPath,$filename);
+        $driver->dl_file_back=$filename;
+
     #end dl file
 
-    #for adhar file
-   	  $file=$request->file('adhar_file');
-      $filename='adhar-'.rand().time().$file->getClientOriginalName();
-      // $extension=$file->getClientOriginalExtension();
-      $destinationPath = public_path('images/driverDoc/adhar');
-      $file->move($destinationPath,$filename);
+    #for rc_front file
+        $file=$request->file('rc_file_front');
+        $filename='RC-front-'.rand().time().$file->getClientOriginalName();
+        // $extension=$file->getClientOriginalExtension();
+        $destinationPath = public_path('images/driverDoc/RC');
+        $file->move($destinationPath,$filename);
+        $driver->rc_file_front=$filename;
 
-	  $driver->adhar_file=$filename;
-    #end adhar
+    #for rc_back file
+        $file=$request->file('rc_file_back');
+        $filename='RC-back-'.rand().time().$file->getClientOriginalName();
+        // $extension=$file->getClientOriginalExtension();
+        $destinationPath = public_path('images/driverDoc/RC');
+        $file->move($destinationPath,$filename);
+        $driver->rc_file_back=$filename;
 
-    #for pan file
+    #end rc_file
 
-      $file=$request->file('pan_file');
-      $filename='pan-'.rand().time().$file->getClientOriginalName();
-      // $extension=$file->getClientOriginalExtension();
-      $destinationPath = public_path('images/driverDoc/pan');
-      $file->move($destinationPath,$filename);
+    #for others_front file
 
-   	   $driver->pan_file=$filename;
+        $file=$request->file('others_file_front');
+        $filename='others-front-'.rand().time().$file->getClientOriginalName();
+        // $extension=$file->getClientOriginalExtension();
+        $destinationPath = public_path('images/driverDoc/others');
+        $file->move($destinationPath,$filename);
+        $driver->others_file_front=$filename;
+
+    #for others_back file
+        $file=$request->file('others_file_back');
+        $filename='others-back-'.rand().time().$file->getClientOriginalName();
+        // $extension=$file->getClientOriginalExtension();
+        $destinationPath = public_path('images/driverDoc/others');
+        $file->move($destinationPath,$filename);
+        $driver->others_file_back=$filename;
+
     #end pan file
 
-    #for insurance file
-    $file=$request->file('insurance_file');
-    $filename='insurance-'.rand().time().$file->getClientOriginalName();
-    // $extension=$file->getClientOriginalExtension();
-    $destinationPath = public_path('images/driverDoc/insurance');
-    $file->move($destinationPath,$filename);
-
-        $driver->insurance_file=$filename;
-    #end insurance file
-
-    #for rc file
-    $file=$request->file('rc_file');
-    $filename='RC-'.rand().time().$file->getClientOriginalName();
-    // $extension=$file->getClientOriginalExtension();
-    $destinationPath = public_path('images/driverDoc/RC');
-    $file->move($destinationPath,$filename);
-
-        $driver->rc_file=$filename;
-
-    #end rc file
-    //  $driver->save();
-     // $list=[];
      if($driver->save()){
         $success['message'] = "Documents Uploaded Successfull";
         $success['ack'] = 1;

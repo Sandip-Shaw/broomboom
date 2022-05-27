@@ -38,7 +38,7 @@ Route::group(['middleware' => ['guest:api']], function () {
     Route::post('/auth/login', [AuthController::class,'login']);
     Route::get('/auth/login', [AuthController::class,'login'])->name('login');
 
-    Route::get('/auth/send-otp/{email}', [EmailController::class,'sendOtp']);
+    Route::get('/auth/send-otp/{email}', [EmailConlogintroller::class,'sendOtp']);
    
     
 }); 
@@ -46,7 +46,7 @@ Route::group(['middleware' => ['guest:api']], function () {
 Route::group(['middleware' => 'auth:api'], function() {  
     Route::post('/auth/choose_vehical', [VehicalTypeController::class,'vehical_type']);
     Route::post('/auth/doc-upload', [DriverDocUploadController::class, 'upload']);
-    Route::post('/auth/support', [SupportController::class, 'support']);
+    Route::post('/auth/help-support', [SupportController::class, 'support']);
 
 
     
