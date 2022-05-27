@@ -5,11 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\ResponseController as ResponseController;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApiUser;
-use App\Models\vehical;
-
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
@@ -35,9 +32,7 @@ class AuthController extends ResponseController
         	
         	$error['message'] = $validator->errors()->first('email');
             $error['ack']=0;
-            return $this->sendResponse($error);    
-
-           
+            return $this->sendResponse($error);        
         }
     	
         $input = $request->all();
@@ -67,19 +62,19 @@ class AuthController extends ResponseController
     //login
     public function login(Request $request)
     {
-
+    // dd($request->request);
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
+            'email' => 'required|string',
             'password' => 'required'
         ]);
 
       
-       // dd($request['password']);
+        //dd($request['email']);
 
-
+       // $validator->error();
 
         if($validator->fails()){
-        	// $validator->getMessageBag()->add('ack',0); 
+        	
         	$error['message'] = $validator->errors()->first('email');
             $error['ack']=0;
             return $this->sendResponse($error);       
@@ -92,67 +87,16 @@ class AuthController extends ResponseController
         }
 
       
-      //  $user = $request->user();
-         $user= Auth::user();
-       
-
+     $user = $request->user();
+       // $user= Auth::user();
         $success['token'] =  $user->createToken('token')->accessToken;
         $success['ack'] = 1;
         $success['message'] = "Login successfull..";
         $success['name'] = $user->name;
         $success['email'] = $user->email;
 
-      
-
         return $this->sendResponse($success);
-             }
+     }
    
-
-
-         }
-    
-
-
-
-
-    public function vehical_type(Request $request)
-    {
-    	 //dd($request['email']);
-
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|string|email',
-            'vehical_type' => 'required'
-        ]);
-         //dd($request['email']);
-        if($validator->fails()){
-        
-        	$error['message'] = $validator->errors()->first('email');
-            $error['ack']=0;
-            return $this->sendResponse($error);    
-
-    
-        }
-       // $user = $request->user();
-       $input = $request->all();
-       $user = vehical::create($input);
-        if($user){
-           
-            $success['message'] = "Successfull..";
-            $success['ack'] = 1;
-            $success['name'] = $user->name;
-            $success['email'] = $user->email;
-            $success['vehical_type'] = $user->vehical_type;
-
-           // $success['number'] = $user->number;
-            return $this->sendResponse($success);
-        }
-        else{
-            $error['message'] = "Sorry! Unsuccessfull.";
-            $error['ack'] = 0;
-            return $this->sendResponse($error, 200); 
-        }
-
-    }
 
 }

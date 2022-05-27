@@ -18,15 +18,18 @@ class CreateDriverDocsTable extends Migration
             
             $table->string('name');
             $table->string('number');
-            $table->string('designation');
-            $table->string('dl_file');
+            
+            $table->string('dl_file_front');
+            $table->string('dl_file_back');
             $table->string('dl_no');
-            $table->string('pan_file');
-            $table->string('pan_no');
-            $table->string('adhar_file');
-            $table->string('adhar_no');
-            $table->string('rc_file');
-            $table->string('insurance_file');
+
+            $table->string('rc_file_front');
+            $table->string('rc_file_back');
+            $table->string('rc_no');
+
+            $table->string('others_file_front');
+            $table->string('others_file_back');
+            $table->string('others_no');
 
             $table->enum('status', ['A', 'I']);
             $table->timestamps();

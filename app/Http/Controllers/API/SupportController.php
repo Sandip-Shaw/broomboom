@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Support;
+use App\Models\HelpSupport;
 
 
 class SupportController extends Controller
@@ -12,7 +12,7 @@ class SupportController extends Controller
     public function support(Request $request)
     {
 
-        $assistance=new Support;
+        $assistance=new HelpSupport;
         // $assistance=$request->tests;
         $variable=$request->toArray();
         // dd($variable['tests']);
