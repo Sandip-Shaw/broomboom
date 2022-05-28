@@ -14,10 +14,10 @@ class DriverDocUploadController extends Controller
       
             $driver=new DriverDoc;
             $x=$request->request;
-
+            $driver->name=$request->user()->name;
             $data=$request->toArray();
-      
-            $driver->name=$data['name'];
+            
+          //  $driver->name=$data['name'];
             $driver->number=$data['number'];
             
             $driver->dl_no=$data['dl_no'];
