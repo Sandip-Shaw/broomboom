@@ -15,13 +15,12 @@ class SupportController extends Controller
         $assistance=new HelpSupport;
         // $assistance=$request->tests;
         $variable=$request->toArray();
-        // dd($variable['tests']);
-        // dd($variable['pickup_time']);
+        
         foreach ($variable as $key => $value) {
         if($key!='_token')
         $assistance->$key=$value;
         }
-
+        $assistance->user_id=$request->user()->id;
         if($assistance->save()){
             $success['message'] = "You Details Are Posted! We Will Get Back To You Shortly.";
             $success['ack'] = 1;

@@ -17,24 +17,19 @@ class VehicalTypeController extends ResponseController
 {
     public function vehical_type(Request $request)
     {
-    	 //dd($request['email']);
 
-        $validator = Validator::make($request->all(), [
-            'vehical_type' => 'required'
-        ]);
-         //dd($request['email']);
-        if($validator->fails()){
-        
-        	$error['message'] = $validator->errors()->first('vehical_type');
-            $error['ack']=0;
-            return $this->sendResponse($error);    
-    
-        }
-       // $user = $request->user();
-       $input = $request->all();
-       $user = VehicalType::create($input);
+      $user =new VehicalType;
+      
+      $variable=$request->toArray();
+      
+      foreach ($variable as $key => $value) {
+      if($key!='_token')
+      $user->$key=$value;
+      }
+       $user->user_id=$request->user()->id;
+        $user->user_name=$request->user()->name;
        
-        if($user){
+        if($user->save()){
            
             $success['message'] = "Successfull..";
             $success['ack'] = 1;
