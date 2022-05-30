@@ -27,7 +27,7 @@ class AuthController extends ResponseController
             'password' => 'required',
             'confirm_password' => 'required|same:password'
         ]);
-//dd($request['password']);
+        //dd($request['password']);
         if($validator->fails()){
         	
         	$error['message'] = $validator->errors()->first('email');
@@ -71,7 +71,7 @@ class AuthController extends ResponseController
       
         //dd($request['email']);
 
-       // $validator->error();
+      
 
         if($validator->fails()){
         	
@@ -98,5 +98,33 @@ class AuthController extends ResponseController
         return $this->sendResponse($success);
      }
    
+
+
+    //getuser
+    public function getUser(Request $request)
+    {
+        //$id = $request->user()->id;
+        $user = $request->user();
+        if($user){
+            return $this->sendResponse($user);
+        }
+        else{
+            $error = "user not found";
+            return $this->sendResponse($error);
+        }
+    }
+
+
+    public function getAllUser()
+    {
+
+    	$user=ApiUser::all();
+
+        if(!$user){
+            $error = "Something Went Wrong";
+            return $this->sendError($error, 401);
+        }
+        return $this->sendResponse($user);
+    }
 
 }
