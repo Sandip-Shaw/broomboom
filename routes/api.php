@@ -51,6 +51,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/auth/getUser', [AuthController::class,'getUser']);
     Route::get('/auth/getUser', [AuthController::class,'getUser']);
     Route::post('/auth/riderDetails', [DriverDocUploadController::class, 'riderDetails']);
+    Route::get('/auth/getRiderDetails', [DriverDocUploadController::class,'getRiderDetails']);
+
     Route::post('/auth/riderDetailsUpdate/{id}', [DriverDocUploadController::class, 'riderDetailsUpdate']);
 
 
