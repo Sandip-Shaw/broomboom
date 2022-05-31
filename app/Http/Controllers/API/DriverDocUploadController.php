@@ -151,7 +151,20 @@ class DriverDocUploadController extends Controller
 
      }
 
+     public function getRiderDetails()
+     {
+ 
+         $user=RiderDetail::all();
+        //dd($user);
+         if($user){
+            return response()->json($user,'200');
+        }
+        else{
+            $error = "user not found";
+            return response()->json($error,'200');
+        }
 
+    }
 
      public function riderDetailsUpdate(Request $request,$id)
      {
@@ -162,7 +175,7 @@ class DriverDocUploadController extends Controller
         $driver->license_validity=$request->license_validity;
         $driver->vehical_no=$request->vehical_no;
         $driver->driver_license=$request->driver_license;
-       // dd($driver);
+      // dd($driver);
         if($request->hasFile('driver_image')){
             if($driver->driver_image){
                 $old_path= public_path('images/driverDoc/driverImage/'.$driver->driver_image);
@@ -170,7 +183,7 @@ class DriverDocUploadController extends Controller
                     File::delete($old_path);
                 }
             }
-
+            $file=$request->file('driver_image');
             $filename='driverImage-'.$file->getClientOriginalName();
             // $extension=$file->getClientOriginalExtension();
             $destinationPath = public_path('images/driverDoc/driverImage');
