@@ -7,10 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\ResponseController as ResponseController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ApiUser;
+
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
-
-
 
 use App\Models\otp;
 
@@ -22,31 +22,44 @@ class AuthController extends ResponseController
     	// dd($request['email']);
 
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|',
+           // 'name' => 'required|string|',
             'email' => 'required|string|email',
-            'password' => 'required',
-            'confirm_password' => 'required|same:password'
+           // 'password' => 'required',
+           // 'confirm_password' => 'required|same:password',
+          //  'mobile' => 'required',
+            'otp' => 'required',
+
+
         ]);
-        //dd($request['password']);
+      //  dd($request['email']);
         if($validator->fails()){
         	
         	$error['message'] = $validator->errors()->first('email');
             $error['ack']=0;
             return $this->sendResponse($error);        
         }
-    	
+        $otp=otp::where('email',$request['email'])->orderby('created_at','desc')->first();
+        //dd($otp);
+        if(!isset($otp))
+        {
+            $error['message'] = "Sorry, OTP did not match";
+            $error['ack'] = 0;
+            return $this->sendResponse($error, 200); 
+        }
+
+    if($otp->otp==$request['otp']){
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-        $input['confirm_password'] = bcrypt($input['confirm_password']);
+      //  $input['password'] = bcrypt($input['password']);
+       // $input['confirm_password'] = bcrypt($input['confirm_password']);
 
         $user = ApiUser::create($input);
         if($user){
             $success['token'] =  $user->createToken('MyApp')->accessToken;
             $success['message'] = "Registration successfull..";
             $success['ack'] = 1;
-            $success['name'] = $user->name;
+            $success['userDetails'] = $user->userDetails;
             $success['email'] = $user->email;
-           // $success['number'] = $user->number;
+          //  $success['mobile'] = $user->mobile;
             return $this->sendResponse($success);
         }
         else{
@@ -54,6 +67,11 @@ class AuthController extends ResponseController
             $error['ack'] = 0;
             return $this->sendResponse($error, 200); 
         }
+    }else{
+            $error['message'] = "Enter a Valid OTP";
+            $error['ack'] = 0;
+            return $this->sendResponse($error, 200);
+    }
 
         
     }
