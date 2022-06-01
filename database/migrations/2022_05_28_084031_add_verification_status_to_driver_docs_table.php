@@ -15,6 +15,7 @@ class AddVerificationStatusToDriverDocsTable extends Migration
     {
         Schema::table('driver_docs', function (Blueprint $table) {
             $table->enum('verification_status', ['success', 'failed','pending']);
+            $table->string('failed_message')->nullable();
         });
     }
 

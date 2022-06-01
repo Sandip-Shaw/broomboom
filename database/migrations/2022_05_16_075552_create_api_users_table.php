@@ -15,11 +15,13 @@ class CreateApiUsersTable extends Migration
     {
         Schema::create('api_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('confirm_password');
+            $table->string('password')->nullable();
+            $table->string('confirm_password')->nullable();
+            $table->string('otp');
+
 
             $table->rememberToken();
             $table->timestamps();

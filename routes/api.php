@@ -7,6 +7,8 @@ use App\Http\Controllers\API\EmailController;
 use App\Http\Controllers\API\DriverDocUploadController;
 use App\Http\Controllers\API\VehicalTypeController;
 use App\Http\Controllers\API\SupportController;
+use App\Http\Controllers\API\ReferController;
+
 
 
 
@@ -38,7 +40,7 @@ Route::group(['middleware' => ['guest:api']], function () {
     Route::post('/auth/login', [AuthController::class,'login']);
     Route::get('/auth/login', [AuthController::class,'login'])->name('login');
 
-    Route::get('/auth/send-otp/{email}', [EmailConlogintroller::class,'sendOtp']);
+    Route::get('/auth/send-otp/{email}', [EmailController::class,'sendOtp']);
     Route::get('/auth/getAllUser', [AuthController::class,'getAllUser']);
    
     
@@ -54,7 +56,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/auth/getRiderDetails', [DriverDocUploadController::class,'getRiderDetails']);
 
     Route::post('/auth/riderDetailsUpdate/{id}', [DriverDocUploadController::class, 'riderDetailsUpdate']);
-
+    Route::get('/auth/referralCode', [ReferController::class,'show']);
 
 
 

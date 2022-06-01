@@ -25,6 +25,8 @@ class ApiUser extends Authenticatable
         'email',
         'password',
         'confirm_password',
+        'mobile',
+        'otp',
     ];
 
     /**
