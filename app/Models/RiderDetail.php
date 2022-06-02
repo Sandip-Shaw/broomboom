@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class RiderDetail extends Model
 {
     use HasFactory;
+    public function users(){
+
+         	return $this->belongsToMany(ApiUser::class);
+         }
 }

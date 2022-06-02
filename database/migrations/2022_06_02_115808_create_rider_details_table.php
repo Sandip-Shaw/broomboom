@@ -22,7 +22,9 @@ class CreateRiderDetailsTable extends Migration
             $table->string('vehical_no');
             $table->string('driver_license');
             $table->string('driver_image');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('user')->onDelete('cascade');
         });
     }
 

@@ -32,7 +32,10 @@ class CreateDriverDocsTable extends Migration
             $table->string('others_no');
 
             $table->enum('status', ['A', 'I']);
+          
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('api_user')->onDelete('cascade');
         });
     }
 
