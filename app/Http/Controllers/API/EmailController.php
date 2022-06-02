@@ -20,6 +20,7 @@ class EmailController extends Controller
     	
     	$data['email']=$email;
     	$data['otp']=rand(1000,9999);
+		$data['msg']="Please enter the OTP in the App to complete registration";
     	// $data['title'] = "This is Test Mail Tuts Make";
 
     	$checkRecentAttempt=otp::where('email',$email)->orderby('created_at','desc')->first();
