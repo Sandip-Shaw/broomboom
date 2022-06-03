@@ -16,8 +16,8 @@ class CreateDriverDocsTable extends Migration
         Schema::create('driver_docs', function (Blueprint $table) {
             $table->bigIncrements('id');
             
-            $table->string('name');
-            $table->string('number');
+            $table->string('name')->nullable();
+            $table->string('number')->nullable();
             
             $table->string('dl_file_front');
             $table->string('dl_file_back');

@@ -78,7 +78,7 @@ class AuthController extends ResponseController
 				'message' =>'Sorry! Something went wrong while sending Pasword. Try after some time',
 				'ack'=>0
 				];
-				return response()->json($response, '200');
+				// return response()->json($response, '200');
 				}
 
              else{
@@ -86,7 +86,7 @@ class AuthController extends ResponseController
 				'message' =>'successfully sent password ',
 				'ack'=>1
 				];
-				return response()->json($response, '200');
+				// return response()->json($response, '200');
 			}
 
             $success['email'] = $user->email;
@@ -148,8 +148,25 @@ class AuthController extends ResponseController
         $success['token'] =  $user->createToken('token')->accessToken;
         $success['ack'] = 1;
         $success['message'] = "Login successfull..";
-        $success['dl_file_front'] = $user->DriverDoc->dl_file_front;
+        $success['name'] = $user->Riderdetails->name;
+        $success['mobile'] = $user->Riderdetails->mobile;
+        $success['vehical_type'] = $user->Riderdetails->vehical_type;
+        $success['license_validity'] = $user->Riderdetails->license_validity;
         $success['vehical_no'] = $user->Riderdetails->vehical_no;
+        $success['driver_license'] = $user->Riderdetails->driver_license;
+        $success['driver_image'] = $user->Riderdetails->driver_image;
+       
+        $success['dl_file_front'] = $user->DriverDoc->dl_file_front;
+        $success['dl_file_back'] = $user->DriverDoc->dl_file_back;
+        $success['rc_file_front'] = $user->DriverDoc->rc_file_front;
+        $success['rc_file_back'] = $user->DriverDoc->rc_file_back;
+        $success['others_file_front'] = $user->DriverDoc->others_file_front;
+        $success['others_file_back'] = $user->DriverDoc->others_file_back;
+
+        $success['rc_no'] = $user->DriverDoc->rc_no;
+        $success['others_no'] = $user->DriverDoc->others_no;
+
+        
 
 
         //$success['name'] = $user->name;

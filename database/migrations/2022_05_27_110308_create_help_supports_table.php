@@ -15,7 +15,9 @@ class CreateHelpSupportsTable extends Migration
     {
         Schema::create('help_supports', function (Blueprint $table) {
             $table->bigIncrements('query_id');
-            $table->string('user_id');
+            $table->unsignedBigInteger('user_id');
+           
+            $table->foreign('user_id')->references('id')->on('api_user')->onDelete('cascade');
             $table->string('subject');
             $table->string('message');
             $table->timestamps();
