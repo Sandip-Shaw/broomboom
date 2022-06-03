@@ -17,11 +17,13 @@ class DriverDocUploadController extends Controller
       
             $driver=new DriverDoc;
             $x=$request->request;
-            $driver->name=$request->user()->name;
+            $driver->user_id=$request->user()->id;
+
+            //$driver->name=$request->user()->name;
             $data=$request->toArray();
             
           //  $driver->name=$data['name'];
-            $driver->number=$data['number'];
+           // $driver->number=$data['number'];
             
             $driver->dl_no=$data['dl_no'];
             $driver->rc_no=$data['rc_no'];
@@ -116,12 +118,12 @@ class DriverDocUploadController extends Controller
     {
         $driver=new RiderDetail;
         $x=$request->request;
-        $driver->name=$request->user()->name;
+        // $driver->name=$request->user()->name;
        // $driver->vehical_type=$request->user()->vehical_type;
-
+        $driver->user_id=$request->user()->id;
         $data=$request->toArray();
         
-      //  $driver->name=$data['name'];
+       $driver->name=$data['name'];
         $driver->mobile=$data['mobile'];
         $driver->vehical_type=$data['vehical_type'];
 
