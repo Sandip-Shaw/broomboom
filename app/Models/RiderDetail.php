@@ -12,4 +12,8 @@ class RiderDetail extends Model
 
          	return $this->belongsToMany(ApiUser::class);
          }
+         public function documents(){
+
+            return $this->hasone(ApiUser::class);
+        }  
 }

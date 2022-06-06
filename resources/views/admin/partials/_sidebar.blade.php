@@ -41,7 +41,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseDoctor" aria-expanded="true" aria-controls="collapseDoctor">
           <i class="fas fa-fw fa-folder"></i>
-          <span>Drivers</span>
+          <span>Pilots</span>
         </a>
         <div id="collapseDoctor" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
