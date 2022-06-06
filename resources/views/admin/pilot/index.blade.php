@@ -26,29 +26,35 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Listing of Driver Images</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Listing of Pilots</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Image</th>
+                      <th>Pilot Image</th>
                       <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Location</th>
+                      <th>Vehical Type</th>
+                      <th>Mobile</th>
+                      <th>license Validity</th>
+                      <th>Vehical Number</th>
+                      <th>Driver license</th>
+
                       <th>Added On</th>
                       <!-- <th>Salary</th> -->
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
-                      <th>Image</th>
+                      <th>Pilot Image</th>
                       <th>Name</th>
-                      <th>Email</th>
-                      <th>Phone</th>
-                      <th>Location</th>
+                      <th>Vehical Type</th>
+                      <th>Mobile</th>
+                      <th>license Validity</th>
+                      <th>Vehical Number</th>
+                      <th>Driver license</th>
+
                       <th>Added On</th>
                       <!-- <th>Salary</th> -->
                     </tr>
@@ -56,9 +62,9 @@
                   <tbody>
                   	@foreach($driver as $drivers)
                   	 <tr>
-                      <td><img src="{{asset('/images/service/'.$drivers->image)}}" alt="Park" style="width:20%">
+                      <td><img src="{{asset('/images/driverDoc/driverImage/'.$drivers->driver_image)}}" alt="Park" style="width:20%">
                       <!-- <i class="fas fa-pen"></i> -->
-                      <a href="{{route('service.edit',$drivers->id)}}"  class="btn"><i class="fas fa-pen"></i></a>
+                      <!-- <a href="{{route('service.edit',$drivers->id)}}"  class="btn"><i class="fas fa-pen"></i></a> -->
                       <a href="{{route('service.show',$drivers->id)}}" data-toggle="tooltip" title="banner Details" class="btn">
                       <i class="fas fa-eye"></i>
                       </a>
@@ -81,9 +87,12 @@
                     </td>
                       <td>{{$drivers->name}}</td>
                       <!-- <td>{{strlen($drivers->description)>50?substr($drivers->description,0,50).'...':$drivers->description}}</td> -->
-                      <td>{{$drivers->email}}</td>
-                      <td>{{$drivers->phone}}</td>
-                      <td>{{$drivers->location}}</td>
+                      <td>{{$drivers->vehical_type}}</td>
+                      <td>{{$drivers->mobile}}</td>
+                      <td>{{$drivers->license_validity}}</td>
+                      <td>{{$drivers->vehical_no}}</td>
+                      <td>{{$drivers->driver_license}}</td>
+
                      
                       <td>{{$drivers->created_at}}</td>
                     </tr>

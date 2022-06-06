@@ -4,14 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Service;
-use App\Models\Driver;
+use App\Models\Blog;
+use App\Models\User;
 
 use Image;
 use Session;
 
-
-class ServiceAdminController extends Controller
+class UserAdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +19,9 @@ class ServiceAdminController extends Controller
      */
     public function index()
     {
-        $driver=Driver::all();
-        return view('admin.service.index')->withDriver($driver);
+        $user=User::all();
+       // dd($blog);
+        return view('admin.blog.index')->withUser($user);
     }
 
     /**
@@ -31,7 +31,7 @@ class ServiceAdminController extends Controller
      */
     public function create()
     {
-        return view('admin.service.create');
+        return view('admin.blog.create');
     }
 
     /**
@@ -43,27 +43,27 @@ class ServiceAdminController extends Controller
     public function store(Request $request)
     {
         // dd($request);
-        $service=new Service;
+        $blog=new Blog;
         $variable=$request->toArray();
         foreach ($variable as $key => $value) {
            if($key!='_token' & $key!='image_name')
-            $service->$key=$value;
+            $blog->$key=$value;
         }
 
         $image=$request->file('image_name');
         //if($request->hasFile('image_name')){
         //dd($image);
-        $filename='service'.'-'.rand().time().'.'.$image->getClientOriginalExtension();//part of image intervention library
-        $location=public_path('/images/service/'.$filename);
+        $filename='blog'.'-'.rand().time().'.'.$image->getClientOriginalExtension();//part of image intervention library
+        $location=public_path('/images/blog/'.$filename);
 
         // use $location='images/'.$filename; on a server
 
         Image::make($image)->resize(800,600)->save($location);
-        $service->image=$filename;
-        $service->save();        
-        //dd("hello");
-        session::flash('success', 'The Service Image Has Been Added Successfully!');
-        return redirect()->route('service.index');
+        $blog->image=$filename;
+        $blog->save();        
+       //dd("hello");
+        session::flash('success', 'The Blog Image Has Been Added Successfully!');
+        return redirect()->route('blog.index');
 
 
     }
@@ -77,9 +77,9 @@ class ServiceAdminController extends Controller
     public function show($id)
     {
        // dd($id);
-        $image=Service::find($id);
+        $image=Blog::find($id);
         //dd( $image);
-        return view('admin.service.show')->withImage($image);
+        return view('admin.blog.show')->withImage($image);
     }
 
     /**
@@ -91,9 +91,9 @@ class ServiceAdminController extends Controller
     public function edit($id)
     {
                 //dd($id);
-        $service=Service::find($id);
+        $blog=Blog::find($id);
         //dd($banner);
-        return view("admin.service.edit")->withImage($service);
+        return view("admin.blog.edit")->withImage($blog);
     }
 
     /**
@@ -107,30 +107,30 @@ class ServiceAdminController extends Controller
     {
         // dd($request);
         // $gallery=new Gallery;
-        $service=Service::find($id);
+        $blog=Blog::find($id);
 
         $variable=$request->toArray();
         foreach ($variable as $key => $value) {
            if($key!='_token' & $key!='image_name' & $key!='_method')
-            $service->$key=$value;
+            $blog->$key=$value;
         }
 
         $image=$request->file('image_name');
         //if($request->hasFile('image_name')){
         //dd($image);
         if(isset($image)){
-        $filename='service'.'-'.rand().time().'.'.$image->getClientOriginalExtension();//part of image intervention library
-        $location=public_path('/images/service/'.$filename);
+        $filename='blog'.'-'.rand().time().'.'.$image->getClientOriginalExtension();//part of image intervention library
+        $location=public_path('/images/blog/'.$filename);
 
         // use $location='images/'.$filename; on a server
 
         Image::make($image)->resize(800,600)->save($location);
-        $service->image=$filename;
+        $blog->image=$filename;
 }
-        $service->save();        
+        $blog->save();        
 
-        session::flash('success', 'The Service Image Has Been updated Successfully!');
-        return redirect()->route('service.index');
+        session::flash('success', 'The Blog Image Has Been updated Successfully!');
+        return redirect()->route('blog.index');
 
 
 
@@ -150,10 +150,10 @@ class ServiceAdminController extends Controller
     public function delete($id,Request $request)
     {   
        // dd("hii");
-        $service=Service::find($id);
-        $service->delete();
-        $request->session()->flash('success', 'The Service Item has been deleted.');
-        return redirect('/admin/service');
+        $blog=Blog::find($id);
+        $blog->delete();
+        $request->session()->flash('success', 'The Blog Item has been deleted.');
+        return redirect('/admin/blog');
         
         // dd($request); 
     }
